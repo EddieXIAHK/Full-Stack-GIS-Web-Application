@@ -1,0 +1,392 @@
+/* SelectionList.css - Dark Theme Implementation */
+
+/* Reset default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container Styles */
+.options-container {
+    position: absolute;
+    top: 70px;
+    bottom: 20px;
+    left: 20px;
+    width: 280px;
+    background: linear-gradient(to bottom, rgba(10, 32, 60, 0.4), rgba(60, 140, 231, 0.35));
+    border: 1px solid rgba(100, 150, 200, 0.3);
+    overflow-y: auto;
+    z-index: 1000;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    pointer-events: auto;
+    color: #ffffff;
+    /* 🚀 ISOLATION: Prevent any external transforms or zoom from affecting this panel */
+    transform: none !important;
+    transform-style: flat !important;
+    will-change: auto;
+    isolation: isolate;
+    backface-visibility: visible;
+}
+
+@media (max-width: 768px) {
+    .options-container {
+        width: 90%;
+        left: 5%;
+        top: 60px;
+        bottom: 20px;
+    }
+}
+
+/* General Title Styles */
+.general-title {
+    font-size: 16px;
+    font-weight: 400;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 8px;
+}
+
+/* Provider Title Styles */
+.provider-title {
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 6px;
+    color: #e0e0e0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Provider Section Styles */
+.provider-section {
+    background: transparent;
+}
+
+/* Subcategory Title Styles */
+.subcategory-title {
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #d0d0d0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Accordion Icon Styles */
+.accordion-icon {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #d0d0d0;
+}
+
+/* Bands Container Styles (scroll area) */
+.bands-container {
+    margin-left: 10px;
+    max-height: none;
+    /* use outer container scroll to avoid double scrollbar */
+    overflow-y: visible;
+}
+
+/* Option Label Styles */
+.option-label {
+    display: flex;
+    align-items: center;
+    padding: 6px 6px;
+    margin: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.bands-container .option-label {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.option-label:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.option-label:focus-within {
+    outline: 2px solid rgba(150, 200, 255, 0.5);
+    outline-offset: 2px;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.option-label.is-checked {
+    background-color: rgba(100, 150, 200, 0.4);
+}
+
+.option-label.is-checked .option-button {
+    color: #ffffff;
+    font-weight: 400;
+}
+
+/* 🚫 Disabled option label for simulation raw data in region mode */
+.option-label-disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    background-color: rgba(80, 80, 80, 0.3) !important;
+}
+
+.option-label-disabled:hover {
+    background-color: rgba(80, 80, 80, 0.3) !important;
+}
+
+.option-label-disabled .option-button {
+    color: #999 !important;
+    text-decoration: line-through;
+}
+
+.option-label-disabled input[type="checkbox"] {
+    cursor: not-allowed;
+}
+
+.option-checkbox {
+    margin-right: 6px;
+}
+
+.option-icon,
+.option-image-icon {
+    margin-right: 6px;
+    font-size: 14px;
+    color: #d0d0d0;
+}
+
+.option-image-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.option-button {
+    flex-grow: 1;
+    text-align: left;
+    font-size: 10px;
+    color: #f0f0f0;
+}
+
+/* Scrollbar Styles */
+.options-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.options-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.options-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.options-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.no-results-message {
+    margin-top: 20px;
+    text-align: center;
+    color: #d0d0d0;
+    font-size: 14px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    .options-container {
+        width: 100%;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 0;
+    }
+
+    .general-title {
+        font-size: 18px;
+    }
+
+    .provider-title {
+        font-size: 16px;
+    }
+
+    .subcategory-title {
+        font-size: 14px;
+    }
+
+    .option-button {
+        font-size: 13px;
+    }
+
+    .option-icon {
+        font-size: 16px;
+    }
+}
+
+.option-button.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.disabled-text {
+    font-size: 0.8em;
+    color: #999;
+    margin-left: 8px;
+}
+
+.info-text {
+    padding: 6px;
+    margin: 6px 4px;
+    background-color: rgba(100, 150, 200, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-size: 10px;
+    color: #ffffff;
+}
+
+/* Inner container to avoid nested absolute positioning and horizontal scroll issues */
+.options-inner {
+    width: 100%;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    position: static;
+    overflow-x: hidden;
+    /* 🚀 防止嵌套時出現橫向滾動 */
+    box-sizing: border-box;
+    /* 🚀 確保正確的盒模型計算 */
+}
+
+/* RegionSelection tabs - Redesigned for cleaner header */
+.region-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    font-weight: 400;
+    color: #d0d0d0;
+    text-align: center;
+    cursor: default;
+    transition: color 0.2s ease;
+}
+
+.tab-button.active {
+    color: #ffffff;
+    border-bottom: 3px solid #ffffff;
+    background: transparent;
+}
+
+.close-button {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    margin-left: 8px;
+    cursor: pointer;
+    color: #d0d0d0;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.close-button:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* TreeView Styles */
+.tree-view {
+    width: 100%;
+}
+
+.tree-view .provider-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: #f0f0f0;
+}
+
+.tree-content {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    padding: 8px;
+    margin-top: 8px;
+}
+
+.tree-node {
+    margin-bottom: 4px;
+}
+
+.tree-node-content {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    min-height: 28px;
+}
+
+.tree-expand-button {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 4px;
+    margin-right: 8px;
+    border-radius: 2px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.tree-expand-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tree-expand-placeholder {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.tree-node-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex: 1;
+}
+
+.tree-checkbox {
+    margin-right: 8px;
+    cursor: pointer;
+    accent-color: #3c8ce7;
+}
+
+.tree-node-text {
+    color: #ffffff;
+    font-size: 14px;
+    user-select: none;
+}
+
+.tree-children {
+    margin-left: 12px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding-left: 8px;
+}

@@ -1,0 +1,57 @@
+/* BoundaryStyles.css - Styling for micro grid boundaries */
+
+/* Micro Grid Boundary Styling - Transparent fill with borders only */
+.micro-grid-boundary {
+    stroke: #0052cc !important;
+    stroke-width: 2px !important;
+    stroke-opacity: 1 !important;
+    stroke-dasharray: 4,2 !important;
+    fill: transparent !important;
+    fill-opacity: 0 !important;
+    pointer-events: stroke !important; /* Only border can be interacted with, fill passes clicks through */
+}
+
+.micro-grid-boundary:hover {
+    stroke-width: 4px !important;
+    stroke: #003d99 !important;
+    fill: transparent !important;
+    fill-opacity: 0 !important;
+    pointer-events: auto !important; /* Enable hover interactions */
+}
+
+/* Micro Grid Tooltip Styling */
+.micro-grid-tooltip {
+    background: rgba(0, 82, 204, 0.95) !important;
+    color: white !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    max-width: 300px !important;
+    white-space: nowrap !important;
+}
+
+/* Tooltip content styling for better readability */
+.micro-grid-tooltip hr {
+    margin: 4px 0 !important;
+    border: none !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.micro-grid-tooltip strong {
+    color: #ffeb3b !important;
+}
+
+/* Active state for high contrast button */
+.toggle-button.active {
+    background-color: #ff6b35 !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
+.toggle-button.active:hover {
+    background-color: #e55a2b !important;
+    box-shadow: 0 6px 16px rgba(255, 107, 53, 0.5) !important;
+}

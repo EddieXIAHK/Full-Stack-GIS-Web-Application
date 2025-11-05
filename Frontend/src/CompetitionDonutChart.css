@@ -1,0 +1,59 @@
+/* CompetitionDonutChart.css */
+
+.donut-chart-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Empty state */
+.donut-chart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+.donut-empty-message {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Custom tooltip */
+.donut-tooltip {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  min-width: 120px;
+}
+
+.donut-tooltip-label {
+  font-size: 13px;
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.donut-tooltip-value {
+  font-size: 18px;
+  color: #60a5fa;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.donut-tooltip-desc {
+  font-size: 11px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Hover effect on container */
+.donut-chart-container:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}

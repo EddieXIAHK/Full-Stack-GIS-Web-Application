@@ -1,0 +1,1412 @@
+.permanent-dashboard {
+    position: fixed;
+    /* Dark blue background for better contrast and text readability */
+    background: linear-gradient(to bottom, rgba(10, 32, 60, 0.4) 0%, rgba(25, 50, 75, 0.4) 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+    border: 1px solid rgba(255, 255, 255, 0.25); /* Light border for definition */
+    font-family: 'Microsoft YaHei', 'Arial', sans-serif;
+    z-index: 999; /* 🚀 確保低於導航欄的 z-index: 1000 */
+    max-width: 50vw; /* 🚀 ENHANCED: Increased to occupy half of webpage */
+    min-width: 48vw; /* 🚀 ENHANCED: Increased to occupy half of webpage */
+    max-height: calc(58vh - 60px); /* 🚀 UPDATED: Reduced to avoid overlap with legend (35vh) */
+    overflow-y: auto; /* 內容超出時顯示滾動條 */
+    transition: all 0.3s ease;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent; /* Firefox */
+    /* 🚀 ISOLATION: Prevent any external transforms or zoom from affecting this panel */
+    transform: none !important;
+    transform-style: flat !important;
+    will-change: auto;
+    isolation: isolate;
+    backface-visibility: visible;
+}
+
+/* 🚀 UPDATED: Bigger size when legend is hidden */
+.permanent-dashboard.legend-hidden {
+    max-width: 50vw; /* 🚀 ENHANCED: Occupy half of webpage */
+    min-width: 48vw; /* 🚀 ENHANCED: Occupy half of webpage */
+    max-height: calc(93vh - 60px); /* Increased from 65vh to take legend's space */
+}
+
+/* Webkit 滾動條樣式 (與 Legend 一致) */
+.permanent-dashboard::-webkit-scrollbar {
+    width: 8px;
+}
+
+.permanent-dashboard::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.permanent-dashboard::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.permanent-dashboard::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.permanent-dashboard.top-left {
+    top: 55px; /* 🚀 對齊導航欄下方：50px 導航欄高度 + 20px 間距 */
+    left: 20px;
+}
+
+.permanent-dashboard.top-right {
+    top: 55px; /* 🚀 對齊導航欄下方：50px 導航欄高度 + 20px 間距 */
+    right: 16px;
+}
+
+.permanent-dashboard.bottom-left {
+    bottom: 20px;
+    left: 20px;
+}
+
+.permanent-dashboard.bottom-right {
+    bottom: 20px;
+    right: 20px;
+}
+
+/* 錯誤提示 */
+.dashboard-error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: 6px;
+    color: #fca5a5;
+    font-size: 13px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.error-icon {
+    font-size: 14px;
+}
+
+.error-message {
+    flex: 1;
+}
+
+.error-dismiss {
+    background: none;
+    border: none;
+    color: #fca5a5;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 2px 4px;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.error-dismiss:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+/* 區域指示器 */
+.region-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 6px 10px;
+    background: rgba(0, 188, 212, 0.1);
+    border: 1px solid rgba(0, 188, 212, 0.3);
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+.region-icon {
+    font-size: 12px;
+}
+
+.region-text {
+    color: #00bcd4;
+    font-weight: 500;
+}
+
+/* 響應式設計 */
+@media (max-width: 1200px) {
+    .permanent-dashboard {
+        max-width: 450px;
+        min-width: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .permanent-dashboard {
+        max-width: 350px;
+        min-width: 300px;
+        padding: 12px;
+    }
+}
+
+
+/* 🚀 NEW: 投訴圖表樣式 */
+.complaint-chart {
+    margin-bottom: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05); /* Subtle transparent background */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for definition */
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.chart-header h3 {
+    margin: 0;
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 400;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* 🚀 Enhanced text shadow for better readability */
+}
+
+/* 🚀 NEW: Chart title row with data source selector */
+.chart-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+}
+
+/* 🚀 NEW: Data source selector styles */
+.data-source-selector {
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 12px;
+    cursor: pointer;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.data-source-selector:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.data-source-selector:focus {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.data-source-selector option {
+    background: #2a2a2a;
+    color: #ffffff;
+    padding: 4px;
+}
+
+.chart-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 投訴圖表專用文字增強 */
+.bar-chart-container {
+    min-height: 160px;
+}
+
+.bar-chart-container svg text {
+    font-family: 'Microsoft YaHei', 'Arial', sans-serif;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    shape-rendering: geometricPrecision;
+}
+
+.grid-count {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 8px;
+    border-radius: 4px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.legend-note {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+
+.loading-state,
+.no-data-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 500;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.legend-color {
+    width: 12px;
+    height: 8px;
+    border-radius: 2px;
+}
+
+.legend-color.complaint-color {
+    background: linear-gradient(90deg, #f97316, #ea580c);
+    box-shadow: 0 0 6px rgba(249, 115, 22, 0.4);
+}
+
+.legend-color.vol-color {
+    background: linear-gradient(90deg, #64B5F6, #42A5F5);
+    box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);
+}
+
+/* 條形圖互動效果 */
+.bar-chart-container svg rect {
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.bar-chart-container svg rect:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    filter: drop-shadow(0 4px 8px rgba(249, 115, 22, 0.3));
+}
+
+/* 分頁導航樣式 */
+.tab-navigation {
+    display: flex;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 8px 12px;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.tab-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.tab-button.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 競對領先分頁樣式 */
+.competitive-content {
+    margin-top: 8px;
+}
+
+.competitive-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.competitive-header h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+}
+
+.competitive-info {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.competitive-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.metric-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metric-title {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 4px;
+}
+
+.metric-value {
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.metric-trend {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.metric-trend.positive {
+    color: #22c55e;
+}
+
+.metric-trend.negative {
+    color: #ef4444;
+}
+
+.competitive-chart {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 12px;
+}
+
+.chart-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    text-align: center;
+}
+
+.placeholder-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 4px;
+}
+
+.placeholder-subtitle {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* MR數據競對領先樣式 */
+.coverage-section,
+.competition-section {
+    margin-bottom: 16px;
+}
+
+.section-title {
+    font-size: 12px;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 競爭分析特殊顏色 */
+.competitive-strong-strong {
+    color: #22c55e !important; /* 綠色 - 最佳情況 */
+}
+
+.competitive-strong-weak {
+    color: #ef4444 !important; /* 紅色 - 需要改善 */
+}
+
+.competitive-weak-strong {
+    color: #3b82f6 !important; /* 藍色 - 機會 */
+}
+
+.competitive-weak-weak {
+    color: #6b7280 !important; /* 灰色 - 中性 */
+}
+
+/* 領先落後分析區塊樣式 */
+.leading-analysis-section {
+    margin-bottom: 16px;
+}
+
+.leading-status-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.leading-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.leading-status {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 4px 8px;
+    border-radius: 4px;
+    min-width: 40px;
+    text-align: center;
+}
+
+.leading-status.leading {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+}
+
+.leading-status.lagging {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.leading-status.unknown {
+    color: #6b7280;
+    background: rgba(107, 114, 128, 0.1);
+}
+
+.leading-percentage {
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+    margin-left: 4px;
+}
+
+/* 🚀 NEW: 排名列表樣式 */
+.ranking-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ranking-item {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.08); /* Transparent background */
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+}
+
+.ranking-item:hover:not(.ranking-header) {
+    background: rgba(255, 255, 255, 0.15); /* Subtle hover effect */
+    transform: translateX(2px);
+}
+
+.ranking-item.ranking-header {
+    background: rgba(255, 255, 255, 0.15);
+    font-weight: 400;
+    font-size: 10px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ranking-number {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.95);
+    min-width: 30px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.grid-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.grid-name {
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.district {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.strength-comparison-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 160px;
+}
+
+.strength-comparison-header,
+.strength-comparison {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    font-size: 11px;
+    text-align: center;
+}
+
+.strength-comparison-header {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+}
+
+.strength-comparison-header span {
+    padding: 4px 6px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    font-size: 10px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.comp-value {
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 400;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.comp-value.strong-strong {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+}
+
+.comp-value.strong-weak {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.comp-value.weak-strong {
+    color: #60a5fa;
+    background: rgba(96, 165, 250, 0.15);
+}
+
+.comp-value.weak-weak {
+    color: #d1d5db;
+    background: rgba(209, 213, 219, 0.15);
+}
+
+.ranking-value {
+    font-size: 15px;
+    font-weight: 400;
+    padding: 6px 12px;
+    border-radius: 6px;
+    min-width: 80px;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.ranking-value.leading-value {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.15);
+}
+
+.ranking-value.lagging-value {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.15);
+}
+
+/* 🚀 NEW: 排名卡片容器 - 用於新的視覺化排名組件 */
+.ranking-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* 🚀 NEW: Coverage Legend Styles */
+.coverage-legend {
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.legend-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 10px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-title::before {
+    content: "ℹ️";
+    font-size: 14px;
+}
+
+.legend-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.legend-item-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-color-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.legend-color-box.excellent {
+    background: #22c55e;
+}
+
+.legend-color-box.good {
+    background: #eab308;
+}
+
+.legend-color-box.fair {
+    background: #f97316;
+}
+
+.legend-color-box.poor {
+    background: #ef4444;
+}
+
+.legend-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    font-weight: 500;
+}
+
+/* 🚀 NEW: Competition Legend Styles */
+.competition-legend {
+    padding: 16px 18px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+    border-radius: 10px;
+    border: 2px solid rgba(96, 165, 250, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.competition-legend .legend-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #93c5fd;
+    margin-bottom: 12px;
+}
+
+.competition-legend .legend-title::before {
+    content: "📊";
+}
+
+.competition-legend-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.competition-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.competition-legend-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(2px);
+}
+
+.competition-color-box {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.competition-color-box.both-strong {
+    background: #22c55e;
+}
+
+.competition-color-box.we-lead {
+    background: #86efac;
+}
+
+.competition-color-box.need-improvement {
+    background: #ef4444;
+}
+
+.competition-color-box.both-weak {
+    background: #9ca3af;
+}
+
+.competition-legend-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.competition-legend-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.competition-legend-desc {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive adjustments for legends */
+@media (max-width: 1024px) {
+    .legend-items,
+    .competition-legend-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .coverage-legend,
+    .competition-legend {
+        padding: 10px 12px;
+    }
+
+    .legend-title,
+    .competition-legend .legend-title {
+        font-size: 11px;
+    }
+
+    .legend-label,
+    .competition-legend-label {
+        font-size: 11px;
+    }
+
+    .competition-legend-desc {
+        font-size: 9px;
+    }
+}
+
+/* 🚀 NEW: 覆蓋率表格樣式 */
+.coverage-table {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.coverage-header,
+.coverage-row {
+    display: grid;
+    grid-template-columns: 90px repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.coverage-header {
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.95);
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 12px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.header-cell {
+    text-align: center;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    font-weight: 400;
+}
+
+.header-cell.corner {
+    background: transparent;
+}
+
+.row-label {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.95);
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.coverage-cell {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.2s ease;
+}
+
+.coverage-cell:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.coverage-cell.cmhk {
+    color: #ffffff;
+    font-weight: 400;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.coverage-cell.hkt {
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.coverage-cell.three-hk {
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.coverage-cell.smt {
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.coverage-summary {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.summary-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.summary-value {
+    font-size: 14px;
+    font-weight: 400;
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.15);
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+
+/* 🚀 NEW: 香港領先率標題樣式 */
+.hk-leading-rate {
+    margin: 0 0 12px 0;
+    padding: 10px 14px;
+    background: rgba(34, 197, 94, 0.2);
+    border: 2px solid rgba(34, 197, 94, 0.5);
+    border-radius: 8px;
+    color: #86efac;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* 🚀 NEW: 標籤頁內容樣式 */
+.tab-content {
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* 🚀 Enhanced border for better visibility */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* 🚀 Enhanced text shadow for better readability */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 🚀 NEW: 儀表板標籤樣式改進 */
+.dashboard-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.08); /* Transparent background */
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.dashboard-tabs .tab-button {
+    flex: 1;
+    padding: 10px 14px;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.85);
+    background: transparent;
+    border: none;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.dashboard-tabs .tab-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.dashboard-tabs .tab-button.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .chart-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .competitive-metrics {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .tab-button,
+    .dashboard-tabs .tab-button {
+        font-size: 10px;
+        padding: 6px 8px;
+    }
+
+    .ranking-item {
+        grid-template-columns: 25px 1fr;
+        gap: 6px;
+        font-size: 10px;
+    }
+
+    .strength-comparison-container {
+        min-width: 120px;
+    }
+
+    .strength-comparison-header,
+    .strength-comparison {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3px;
+        font-size: 8px;
+    }
+
+    .strength-comparison-header span {
+        font-size: 7px;
+        padding: 1px 2px;
+    }
+
+    .ranking-value {
+        grid-column: 1 / -1;
+        margin-top: 4px;
+    }
+
+    .coverage-header,
+    .coverage-row {
+        grid-template-columns: 60px repeat(4, 1fr);
+        gap: 4px;
+        font-size: 10px;
+    }
+}
+
+/* 🚀 NEW: 合併覆蓋率頁面樣式 */
+.tab-content h4 {
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 8px;
+}
+
+.tab-content .hk-leading-rate {
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    background: rgba(34, 197, 94, 0.1);
+    border-left: 3px solid #22c55e;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #86efac;
+}
+
+/* 分區樣式，為不同部分添加視覺分隔 */
+.tab-content > div[style*="marginTop"] {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 確保覆蓋率表格在合併頁面中的間距 */
+.coverage-table {
+    margin-bottom: 20px;
+}
+
+/* ================================================================ */
+/* 🚀 NEW STYLES: Modern Multi-Line Chart and Detail Panel */
+/* ================================================================ */
+
+/* Modern chart container for Recharts */
+.chart-container-modern {
+    margin-top: 14px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Multi-grid count label */
+.grid-count-multiline {
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(100, 181, 246, 0.15);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #64B5F6;
+    margin-top: 8px;
+}
+
+/* Modern legend styles */
+.chart-legend-modern {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.legend-note-modern {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+    text-align: center;
+}
+
+/* Recharts tooltip customization (additional styles) */
+.recharts-tooltip-wrapper {
+    z-index: 1000;
+}
+
+.recharts-default-tooltip {
+    background: rgba(0, 0, 0, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+.recharts-tooltip-label {
+    color: white !important;
+    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+}
+
+.recharts-tooltip-item {
+    color: white !important;
+}
+
+/* Recharts legend styling */
+.recharts-legend-wrapper {
+    padding-top: 16px !important;
+}
+
+.recharts-legend-item {
+    margin-right: 16px !important;
+}
+
+.recharts-legend-item-text {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+/* Hover effects for chart lines */
+.recharts-line-curve:hover {
+    filter: brightness(1.2);
+    cursor: pointer;
+}
+
+.recharts-line-dot:hover {
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* Active dot pulse animation */
+@keyframes pulse-dot {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+.recharts-active-dot {
+    animation: pulse-dot 1s infinite;
+}
+
+/* Chart container loading state */
+.chart-container-modern .loading-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* No data state styling */
+.chart-container-modern .no-data-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1200px) {
+    .permanent-dashboard {
+        max-width: 60vw;
+        min-width: 55vw;
+    }
+
+    .chart-container-modern {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .permanent-dashboard {
+        max-width: 90vw;
+        min-width: 85vw;
+    }
+
+    .chart-container-modern {
+        padding: 8px;
+    }
+
+    .grid-count-multiline {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+}
+
+/* ================================================================ */
+/* 🚀 INLINE DETAIL DISPLAY STYLES (NO OVERLAPPING PANEL) */
+/* ================================================================ */
+
+.inline-detail-display {
+    margin-top: 16px;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(234, 88, 12, 0.1) 100%);
+    border-radius: 12px;
+    border: 2px solid rgba(249, 115, 22, 0.3);
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.inline-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.inline-detail-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+}
+
+.inline-detail-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.inline-detail-close:hover {
+    background: rgba(239, 68, 68, 0.3);
+    transform: scale(1.1);
+}
+
+.inline-detail-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inline-detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.inline-detail-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.inline-detail-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f97316;
+}
+
+.inline-detail-summary {
+    margin-top: 8px;
+    padding: 12px;
+    background: rgba(249, 115, 22, 0.2);
+    border-radius: 8px;
+    border: 1px solid rgba(249, 115, 22, 0.4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inline-detail-summary-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+}
+
+.inline-detail-summary-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffa040;
+}
+
+/* Responsive adjustments for inline detail */
+@media (max-width: 768px) {
+    .inline-detail-display {
+        padding: 12px;
+    }
+
+    .inline-detail-title {
+        font-size: 14px;
+    }
+
+    .inline-detail-value {
+        font-size: 14px;
+    }
+
+    .inline-detail-summary-value {
+        font-size: 16px;
+    }
+}

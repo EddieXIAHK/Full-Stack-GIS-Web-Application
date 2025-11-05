@@ -1,0 +1,247 @@
+/* DistrictMicroGridSelection.css */
+/* Dark-themed styles for district-microgrid selection component */
+
+/* Dark theme overrides for Micro-Grid Selection List */
+.options-container {
+    width: 280px !important;
+    background-color: rgba(25, 50, 75, 0.35) !important;
+    border: 1px solid rgba(100, 150, 200, 0.3) !important;
+    color: #ffffff;
+    /* 🚀 ISOLATION: Already defined in SelectionList.css, but reinforcing here for specificity */
+    transform: none !important;
+    transform-style: flat !important;
+    will-change: auto;
+    isolation: isolate;
+    backface-visibility: visible;
+}
+
+.general-title {
+    color: #ffffff !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3) !important;
+    font-size: 16px !important;
+}
+
+.info-text {
+    background-color: rgba(100, 150, 200, 0.3) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    font-size: 10px !important;
+}
+
+/* District card container - clean card design */
+.district-card {
+    margin-bottom: 8px;
+    border: 1px solid rgba(100, 150, 200, 0.3);
+    border-radius: 6px;
+    background: rgba(40, 70, 100, 0.4);
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.district-card:hover {
+    border-color: rgba(150, 200, 255, 0.6);
+    box-shadow: 0 2px 8px rgba(150, 200, 255, 0.2);
+}
+
+/* District header - improved layout with checkbox */
+.district-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: rgba(30, 60, 90, 0.4);
+    border-bottom: 1px solid rgba(100, 150, 200, 0.3);
+    transition: background-color 0.2s ease;
+}
+
+.district-header:hover {
+    background: rgba(50, 80, 120, 0.5);
+}
+
+
+/* District checkbox styling */
+.district-checkbox {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #2196F3;
+    transition: transform 0.2s ease;
+}
+
+.district-checkbox:hover {
+    transform: scale(1.1);
+}
+
+.district-checkbox:focus {
+    outline: 2px solid rgba(33, 150, 243, 0.5);
+    outline-offset: 2px;
+}
+
+/* District information layout */
+.district-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.district-name {
+    font-weight: 400;
+    font-size: 12px;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.district-meta {
+    font-size: 9px;
+    color: #d0d0d0;
+    font-weight: 400;
+}
+
+/* Expand indicator - clickable button */
+.expand-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    color: #d0d0d0;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border-radius: 4px;
+    /* Now clickable to expand/collapse */
+}
+
+.district-header:hover .expand-indicator {
+    color: #ffffff;
+}
+
+.expand-indicator:hover {
+    color: #ffffff;
+    background: rgba(100, 150, 200, 0.3);
+    transform: scale(1.1);
+}
+
+/* Micro grids container - improved vertical layout */
+.micro-grids-container {
+    padding: 8px 10px 10px 10px;
+    background: rgba(25, 50, 75, 0.35);
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+/* Individual micro grid items - clean vertical layout */
+.micro-grid-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    margin: 3px 0;
+    border-radius: 4px;
+    background: rgba(50, 80, 110, 0.4);
+    border: 1px solid rgba(100, 150, 200, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.micro-grid-item:hover {
+    background: rgba(70, 100, 130, 0.5);
+    border-color: rgba(150, 200, 255, 0.5);
+}
+
+.micro-grid-item:has(.micro-grid-checkbox:checked) {
+    background: rgba(80, 120, 150, 0.5);
+    border-color: rgba(150, 200, 255, 0.7);
+}
+
+.micro-grid-checkbox {
+    margin-right: 6px;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    accent-color: #4caf50;
+}
+
+.micro-grid-icon {
+    color: #d0d0d0;
+    margin-right: 6px;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.micro-grid-name {
+    flex: 1;
+    font-size: 10px;
+    color: #f0f0f0;
+    font-weight: 500;
+}
+
+.micro-grid-district {
+    font-size: 10px;
+    color: #b0b0b0;
+    font-weight: 400;
+    margin-left: 8px;
+}
+
+/* Scrollbar styling for micro grids container - Dark theme */
+.micro-grids-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.micro-grids-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.micro-grids-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.micro-grids-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .options-container {
+        width: 95vw !important;
+        max-width: 380px;
+    }
+
+    .district-name {
+        font-size: 15px;
+    }
+
+    .district-meta {
+        font-size: 12px;
+    }
+
+    .micro-grid-name {
+        font-size: 13px;
+    }
+
+    .district-header {
+        padding: 14px;
+    }
+
+    .micro-grid-item {
+        padding: 8px 10px;
+    }
+}
+
+/* Focus states for accessibility */
+.district-checkbox:focus,
+.micro-grid-checkbox:focus,
+.district-header:focus-within {
+    outline: none;
+    /* or set to a subtler color */
+}
+
+/* Loading state */
+.district-card.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}

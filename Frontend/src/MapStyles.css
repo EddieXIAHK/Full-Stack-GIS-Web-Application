@@ -1,0 +1,998 @@
+/* filename: MapStyles.css */
+html,
+body,
+#root,
+.App {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 🚀 FIX: Prevent unwanted scrollbars during clear operations */
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+}
+
+#map {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+}
+
+/* Map interactions now controlled via Leaflet's native interaction system */
+
+.general-title {
+    font-size: 18px;
+    font-weight: 400;
+    color: #004d40;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.button-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1001;
+    gap: 12px;
+}
+
+.toggle-button {
+    margin-bottom: 0;
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    width: 160px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.toggle-button:hover {
+    background-color: #1976D2;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.map-options-panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 380px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 1000;
+    padding: 24px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.provider-section {
+    margin-bottom: 28px;
+    background-color: white;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.provider-title {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+}
+
+.bands-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.option-label {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option-checkbox {
+    margin-right: 10px;
+}
+
+.option-button {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.option-label:hover {
+    background-color: #f1f3f5;
+    transform: translateY(-1px);
+}
+
+.option-label:focus-within {
+    outline: none;
+    box-shadow: 0 0 0 2px #0056b3;
+}
+
+.user-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 400px;
+    background-color: #ffc107;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000;
+}
+
+.user-message p {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.user-message button {
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.user-message button:hover {
+    background-color: #0056b3;
+}
+
+.user-message-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.user-message {
+    background-color: white;
+    padding: 24px 32px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 450px;
+}
+
+.loader-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+}
+
+
+/* ==========================================================================
+   Error Message Overlay - 🚀 友好的錯誤提示組件
+   ========================================================================= */
+.error-overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.error-overlay-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    pointer-events: auto;
+}
+
+.error-message-center {
+    position: relative;
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: white;
+    padding: 32px 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 10001;
+    min-width: 350px;
+    max-width: 500px;
+    animation: errorFadeIn 0.3s ease-out;
+}
+
+.error-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.error-title {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.error-message {
+    font-size: 16px;
+    margin-bottom: 16px;
+    opacity: 0.95;
+    line-height: 1.4;
+}
+
+.error-details {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border-left: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.error-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.error-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+}
+
+.error-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.error-button-primary {
+    background: white;
+    color: #d32f2f;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.error-button-primary:hover:not(:disabled) {
+    background: #f5f5f5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.error-button-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.error-button-secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.error-retry-info {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 8px;
+}
+
+@keyframes errorFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 響應式設計 - 移動設備優化 */
+@media (max-width: 768px) {
+    .loading-message-center {
+        padding: 24px 32px;
+        min-width: 280px;
+        margin: 0 20px;
+    }
+    
+    .error-message-center {
+        padding: 24px 28px;
+        min-width: 300px;
+        max-width: 90vw;
+        margin: 0 20px;
+    }
+    
+    .loading-icon {
+        font-size: 40px;
+        margin-bottom: 12px;
+    }
+    
+    .loading-text {
+        font-size: 18px;
+        margin-bottom: 6px;
+    }
+    
+    .loading-subtext {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .loading-message-center {
+        padding: 20px 24px;
+        min-width: 240px;
+    }
+    
+    .loading-icon {
+        font-size: 36px;
+    }
+    
+    .loading-text {
+        font-size: 16px;
+    }
+    
+    .loading-subtext {
+        font-size: 12px;
+    }
+    
+    .error-message-center {
+        padding: 20px 24px;
+        min-width: 260px;
+    }
+    
+    .error-icon {
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+    
+    .error-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    .error-message {
+        font-size: 14px;
+        margin-bottom: 14px;
+    }
+    
+    .error-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .error-button {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
+
+/* ==========================================================================
+   Planning Site Popup Styles
+   ========================================================================= */
+.planning-popup {
+    max-width: 300px;
+    max-height: 380px;
+    overflow-y: auto;
+    font-size: 13px;
+}
+
+.planning-popup h3 {
+    margin: 0 0 6px 0;
+    font-size: 15px;
+    text-align: center;
+}
+
+.planning-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.planning-table td {
+    padding: 4px 6px;
+    vertical-align: top;
+    border-bottom: 1px solid #eee;
+}
+
+.planning-table td:first-child {
+    font-weight: 400;
+    white-space: nowrap;
+    color: #333;
+}
+
+.planning-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* (single-select styles removed) */
+
+/* ==========================================================================
+   Map Legend
+   ========================================================================= */
+.map-legend {
+    position: fixed; /* 固定在視窗，不隨地圖縮放/平移 */
+    bottom: 2px;
+    right: 16px;
+    background-color: rgba(25, 50, 75, 0.5); /* 🚀 Increased transparency from 0.7 to 0.5 */
+    border: 1px solid rgba(100, 150, 200, 0.4); /* 🚀 Enhanced border for better definition */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    padding: 8px 10px;
+    max-width: 200px;
+    max-height: 40vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 11px;
+    z-index: 1002;
+    color: #ffffff;
+    /* Ensure legend captures all mouse events */
+    pointer-events: auto;
+    backdrop-filter: blur(6px); /* 🚀 Reduced blur from 4px to 6px for better basemap visibility */
+    /* Prevent map interactions through legend */
+    touch-action: pan-y; /* 允许垂直滚动，但防止缩放和水平拖拽 */
+    /* 增强的鼠标事件拦截 */
+    user-select: none; /* 防止意外选择 */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    /* 防止拖拽 */
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    /* 🚀 ISOLATION: Prevent any external transforms or zoom from affecting this panel */
+    transform: none !important;
+    transform-style: flat !important;
+    will-change: auto;
+    isolation: isolate;
+    backface-visibility: visible;
+}
+
+.map-legend:hover {
+    background-color: rgba(25, 50, 75, 0.75); /* 🚀 Reduced hover opacity from 0.95 to 0.75 */
+}
+
+/* Webkit滚动条样式 */
+.map-legend::-webkit-scrollbar {
+    width: 8px;
+}
+
+.map-legend::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.map-legend::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.map-legend::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.legend-section + .legend-section {
+    margin-top: 6px;
+    padding-top: 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.legend-title {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7); /* 🚀 Added text shadow for better readability */
+}
+
+.legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1px;
+    line-height: 1.3;
+}
+
+.legend-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+.legend-shape {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.legend-triangle {
+    margin-right: 6px;
+    margin-left: 2px; /* Center alignment for triangle */
+}
+
+.legend-diamond {
+    margin-right: 6px;
+    margin-left: 1px;
+}
+
+.legend-label {
+    line-height: 1.3;
+    flex: 1;
+    color: #ffffff;
+    font-size: 10px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8); /* 🚀 Enhanced text shadow for better readability */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* ==========================================================================
+   Site ID Labels for Live Sites
+   ========================================================================= */
+.site-label-container {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.site-id-label {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* ==========================================================================
+   Enhanced Legend Styles for Six-Dimension Data Structure
+   ========================================================================= */
+
+/* Legend checkbox styling */
+.legend-checkbox {
+    margin-right: 8px;
+    transform: scale(0.9);
+    cursor: pointer;
+}
+
+/* Legend icon styling */
+.legend-icon {
+    flex-shrink: 0;
+}
+
+/* Main data item container */
+.legend-data-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.legend-data-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.legend-data-item.legend-selected {
+    background-color: rgba(33, 150, 243, 0.1);
+    border-left: 3px solid #2196F3;
+}
+
+/* Content container for title and subtitle */
+.legend-data-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Main data type title */
+.legend-data-title {
+    font-weight: 400;
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 2px;
+    line-height: 1.2;
+}
+
+/* Data type subtitle */
+.legend-data-subtitle {
+    font-size: 11px;
+    color: #666;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+/* Group container for data with subcategories */
+.legend-data-group {
+    margin-bottom: 10px;
+}
+
+.legend-data-group .legend-data-title {
+    margin-bottom: 6px;
+    padding-left: 4px;
+    font-weight: 400;
+    font-size: 13px;
+    color: #333;
+}
+
+/* Container for data items within a group */
+.legend-data-items {
+    margin-left: 8px;
+    padding-left: 8px;
+    border-left: 2px solid #eee;
+}
+
+/* Individual data item within a group */
+.legend-data-items .legend-data-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+    padding: 4px 6px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.legend-data-items .legend-data-item:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Label for data items */
+.legend-data-label {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.2;
+}
+
+/* Subcategories container */
+.legend-subcategories {
+    margin-left: 8px;
+    padding-left: 8px;
+    border-left: 2px solid #eee;
+}
+
+/* Individual subcategory item */
+.legend-subitem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+    padding: 4px 6px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.legend-subitem:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.legend-subitem.legend-selected {
+    background-color: rgba(33, 150, 243, 0.08);
+    border-left: 2px solid #2196F3;
+    margin-left: -2px;
+    padding-left: 8px;
+}
+
+/* Subcategory label */
+.legend-sublabel {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.2;
+}
+
+/* ============================================================================ */
+/* 🚀 NEW: Competitive Sites Styles */
+/* ============================================================================ */
+
+/* Competitive site cluster styles */
+.competitive-cluster {
+    background: rgba(255, 107, 53, 0.8); /* Orange background */
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 400;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.competitive-cluster div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.competitive-cluster-small {
+    background: rgba(255, 107, 53, 0.8);
+}
+
+.competitive-cluster-medium {
+    background: rgba(52, 152, 219, 0.8); /* Blue for medium */
+}
+
+.competitive-cluster-large {
+    background: rgba(231, 76, 60, 0.8); /* Red for large */
+}
+
+/* Competitive site popup styles */
+.competitive-site-popup {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-width: 250px;
+    max-width: 350px;
+}
+
+.competitive-site-popup h4 {
+    margin: 0 0 12px 0;
+    color: #2c3e50;
+    font-size: 16px;
+    font-weight: 400;
+    border-bottom: 2px solid #ff6b35;
+    padding-bottom: 6px;
+}
+
+.competitive-site-popup p {
+    margin: 6px 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #34495e;
+}
+
+.competitive-site-popup p strong {
+    color: #2c3e50;
+    font-weight: 400;
+    display: inline-block;
+    min-width: 65px;
+}
+
+/* Competitive site diamond marker styles (handled by createShapedMarker) */
+/* Additional custom styling can be added here if needed */
+
+/* ==========================================================================
+   🚀 ZOOM PERFORMANCE OPTIMIZATIONS
+   ========================================================================= */
+
+/* Enhanced visual optimization during zoom operations */
+.zooming-performance-mode .leaflet-overlay-pane {
+    filter: contrast(0.8) brightness(1.05);
+    transition: none !important;
+    will-change: transform; /* Optimize for hardware acceleration */
+}
+
+.zooming-performance-mode .leaflet-marker-icon,
+.zooming-performance-mode .leaflet-marker-shadow {
+    opacity: 0.4 !important; /* Further reduced opacity for better performance */
+    transition: none !important;
+    will-change: transform;
+}
+
+/* Simplify rendering during movement */
+.moving-performance-mode .leaflet-overlay-pane {
+    filter: none;
+    transition: none !important;
+}
+
+/* Enhanced canvas and rendering optimization during interactions */
+.zooming-performance-mode canvas,
+.moving-performance-mode canvas {
+    image-rendering: optimizeSpeed !important;
+    image-rendering: -webkit-optimize-contrast !important;
+    image-rendering: optimize-contrast !important;
+    will-change: transform, opacity;
+}
+
+/* GPU acceleration for smoother performance */
+.zooming-performance-mode .leaflet-container,
+.moving-performance-mode .leaflet-container {
+    transform: translateZ(0); /* Force hardware acceleration */
+    backface-visibility: hidden;
+}
+
+/* Reduce SVG complexity during zoom */
+.zooming-performance-mode svg {
+    shape-rendering: optimizeSpeed !important;
+}
+
+/* Performance mode for cluster markers */
+.zooming-performance-mode .marker-cluster {
+    transition: none !important;
+}
+
+.zooming-performance-mode .marker-cluster-small,
+.zooming-performance-mode .marker-cluster-medium,
+.zooming-performance-mode .marker-cluster-large {
+    transition: none !important;
+    transform: none !important;
+}
+
+/* Disable animations during performance mode - ONLY for map-related elements */
+/* IMPORTANT: This must NOT affect UI panels (options-container, Collapsible, etc.) */
+.zooming-performance-mode .leaflet-container *:not(.options-container):not(.options-container *),
+.zooming-performance-mode .leaflet-overlay-pane *,
+.zooming-performance-mode .leaflet-tile-pane *,
+.moving-performance-mode .leaflet-container *:not(.options-container):not(.options-container *),
+.moving-performance-mode .leaflet-overlay-pane *,
+.moving-performance-mode .leaflet-tile-pane * {
+    animation-duration: 0s !important;
+    animation-play-state: paused !important;
+    transition-duration: 0s !important;
+}
+
+/* Preserve selection list animations and scrolling */
+.zooming-performance-mode .options-container,
+.zooming-performance-mode .options-container *,
+.moving-performance-mode .options-container,
+.moving-performance-mode .options-container * {
+    animation-duration: initial !important;
+    animation-play-state: initial !important;
+    transition-duration: initial !important;
+    /* 🚀 ZOOM ISOLATION: Prevent any transform/scale from affecting UI panels */
+    transform: none !important;
+    transform-style: flat !important;
+    backface-visibility: visible !important;
+}
+
+/* Ensure scrollbars always work and maintain consistent size during zoom */
+/* Protection for main options-container scrollbars */
+.zooming-performance-mode .options-container::-webkit-scrollbar,
+.moving-performance-mode .options-container::-webkit-scrollbar {
+    display: initial !important;
+    width: 8px !important; /* Fixed width to prevent zoom scaling */
+    transform: none !important;
+    transform-style: flat !important;
+}
+
+.zooming-performance-mode .options-container::-webkit-scrollbar-track,
+.moving-performance-mode .options-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1) !important;
+    transform: none !important;
+    transform-style: flat !important;
+}
+
+.zooming-performance-mode .options-container::-webkit-scrollbar-thumb,
+.moving-performance-mode .options-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3) !important;
+    border-radius: 4px !important;
+    transform: none !important;
+    transform-style: flat !important;
+}
+
+.zooming-performance-mode .options-container::-webkit-scrollbar-thumb:hover,
+.moving-performance-mode .options-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Protection for micro-grids-container scrollbars */
+.zooming-performance-mode .micro-grids-container::-webkit-scrollbar,
+.moving-performance-mode .micro-grids-container::-webkit-scrollbar {
+    display: initial !important;
+    width: 6px !important; /* Fixed width to prevent zoom scaling */
+    transform: none !important;
+    transform-style: flat !important;
+}
+
+.zooming-performance-mode .micro-grids-container::-webkit-scrollbar-track,
+.moving-performance-mode .micro-grids-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 3px !important;
+    transform: none !important;
+    transform-style: flat !important;
+}
+
+.zooming-performance-mode .micro-grids-container::-webkit-scrollbar-thumb,
+.moving-performance-mode .micro-grids-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3) !important;
+    border-radius: 3px !important;
+    transform: none !important;
+    transform-style: flat !important;
+}
+
+.zooming-performance-mode .micro-grids-container::-webkit-scrollbar-thumb:hover,
+.moving-performance-mode .micro-grids-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Preserve react-collapsible functionality - COMPLETE PROTECTION */
+/* DO NOT override max-height, height, or overflow as they control the collapse state */
+.zooming-performance-mode .Collapsible,
+.zooming-performance-mode .Collapsible *,
+.zooming-performance-mode .Collapsible__trigger,
+.zooming-performance-mode .Collapsible__trigger *,
+.zooming-performance-mode .Collapsible__contentOuter,
+.zooming-performance-mode .Collapsible__contentOuter *,
+.zooming-performance-mode .Collapsible__contentInner,
+.zooming-performance-mode .Collapsible__contentInner *,
+.moving-performance-mode .Collapsible,
+.moving-performance-mode .Collapsible *,
+.moving-performance-mode .Collapsible__trigger,
+.moving-performance-mode .Collapsible__trigger *,
+.moving-performance-mode .Collapsible__contentOuter,
+.moving-performance-mode .Collapsible__contentOuter *,
+.moving-performance-mode .Collapsible__contentInner,
+.moving-performance-mode .Collapsible__contentInner * {
+    /* Preserve all animations and transitions */
+    animation-duration: inherit !important;
+    animation-play-state: inherit !important;
+    transition-duration: inherit !important;
+    transition-delay: inherit !important;
+    transition-timing-function: inherit !important;
+    transition-property: inherit !important;
+    /* DO NOT touch these - they control collapse state */
+    /* max-height: [keep original] */
+    /* height: [keep original] */
+    /* overflow: [keep original] */
+    transform: none !important;
+}
+
+/* H3 Base Station Tooltip Styles */
+.h3-base-station-tooltip {
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    white-space: nowrap !important;
+}
+
+.h3-base-station-tooltip::before {
+    border-top-color: #ffffff !important;
+}

@@ -1,0 +1,621 @@
+/* GridDetailPanel.css - Professional GIS/Telecom Analysis Tool */
+
+:root {
+    /* Industrial Dark Blue Palette */
+    --gis-background: #0a1628;          /* Deep Navy Background */
+    --gis-surface: #1e293b;             /* Steel Blue Surface */
+    --gis-primary: #1e40af;             /* Steel Blue Primary */
+    --gis-accent: #06b6d4;              /* Professional Cyan */
+    --gis-text-primary: #f8fafc;        /* High Contrast White */
+    --gis-text-secondary: #cbd5e1;      /* Muted White */
+    --gis-text-tertiary: #94a3b8;       /* Subtle Text */
+    --gis-border: #334155;              /* Dark Border */
+    --gis-border-light: #475569;        /* Lighter Border */
+
+    /* Technical Status Colors */
+    --status-critical: #dc2626;         /* Critical Red */
+    --status-high: #ea580c;             /* High Orange */
+    --status-medium: #0891b2;           /* Medium Cyan */
+    --status-low: #6366f1;              /* Low Purple */
+
+    /* Typography */
+    --font-mono: 'Courier New', 'Monaco', 'Menlo', monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Main Panel Overlay */
+.grid-detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(173, 216, 230, 0.3);  /* Light blue with high opacity */
+    overflow: hidden;
+    animation: overlayFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.grid-detail-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Main Panel Container */
+.grid-detail-panel {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(10, 32, 60, 0.9), rgba(60, 140, 231, 0.8));
+    border: 1px solid rgba(100, 150, 200, 0.3);
+    border-radius: 8px;
+    width: 600px;
+    max-width: 90vw;
+    max-height: 80vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    animation: panelSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: center center;
+}
+
+@keyframes panelSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Remove decorative animations for professional appearance */
+
+/* Panel Header */
+.grid-detail-header {
+    background: transparent;
+    color: #ffffff;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.grid-detail-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.grid-icon {
+    display: none; /* Remove decorative emoji */
+}
+
+.grid-title-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.grid-name {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+    letter-spacing: 0.025em;
+}
+
+.grid-subtitle {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 400;
+    color: #e0e0e0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.grid-detail-close {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-family: var(--font-mono);
+}
+
+.grid-detail-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+/* Tab Navigation */
+.grid-tab-navigation {
+    background: transparent;
+    display: flex;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.grid-tab-navigation::-webkit-scrollbar {
+    height: 2px;
+}
+
+.grid-tab-navigation::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.grid-tab-navigation::-webkit-scrollbar-thumb {
+    background: var(--gis-border);
+}
+
+.grid-tab {
+    background: transparent;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    color: #d0d0d0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    min-width: 120px;
+    justify-content: center;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+}
+
+.grid-tab:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.grid-tab.active {
+    color: #ffffff;
+    background: transparent;
+    border-bottom-color: #ffffff;
+}
+
+.tab-icon {
+    display: none; /* Remove decorative emojis for professional look */
+}
+
+.tab-label {
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+}
+
+/* Tab Content */
+.grid-detail-content {
+    flex: 1;
+    overflow-y: auto;
+    background: transparent;
+}
+
+.grid-detail-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.grid-detail-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.grid-detail-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.grid-detail-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.grid-tab-content {
+    padding: 20px;
+}
+
+.tab-content-indicator {
+    display: none; /* Remove decorative emoji */
+}
+
+/* Section Styling */
+.grid-detail-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 16px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    position: relative;
+}
+
+.grid-detail-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+}
+
+.grid-detail-section.priority-critical::before {
+    background: var(--status-critical);
+}
+
+.grid-detail-section.priority-high::before {
+    background: var(--status-high);
+}
+
+.grid-detail-section.priority-medium::before {
+    background: var(--status-medium);
+}
+
+.grid-detail-section.priority-low::before {
+    background: var(--status-low);
+}
+
+.grid-detail-section:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 16px 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 400;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-left: 12px;
+}
+
+.section-indicator {
+    display: none; /* Remove decorative elements */
+}
+
+.priority-badge {
+    margin-left: auto;
+    padding: 2px 6px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 1px solid;
+}
+
+.priority-badge.priority-critical {
+    background: rgba(220, 38, 38, 0.15);
+    color: var(--status-critical);
+    border-color: var(--status-critical);
+}
+
+.priority-badge.priority-high {
+    background: rgba(234, 88, 12, 0.15);
+    color: var(--status-high);
+    border-color: var(--status-high);
+}
+
+.priority-badge.priority-medium {
+    background: rgba(8, 145, 178, 0.15);
+    color: var(--status-medium);
+    border-color: var(--status-medium);
+}
+
+.priority-badge.priority-low {
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--status-low);
+    border-color: var(--status-low);
+}
+
+.section-content {
+    display: block; /* Change to block for table-like layout */
+}
+
+/* Field Rows - Professional Technical Data Display */
+.field-row {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 12px;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 20px;
+    align-items: center;
+    position: relative;
+    min-height: 32px;
+}
+
+.field-row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+}
+
+.field-row.priority-critical::before {
+    background: var(--status-critical);
+}
+
+.field-row.priority-high::before {
+    background: var(--status-high);
+}
+
+.field-row.priority-medium::before {
+    background: var(--status-medium);
+}
+
+.field-row.priority-low::before {
+    background: var(--status-low);
+}
+
+.field-row:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.field-row.unavailable {
+    opacity: 0.5;
+    background: transparent;
+}
+
+.field-row.unavailable::before {
+    background: var(--gis-text-tertiary);
+}
+
+.field-label {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: #f0f0f0;
+    font-size: 12px;
+    letter-spacing: 0.025em;
+    text-align: right;
+    padding-right: 8px;
+}
+
+.field-label::before {
+    display: none; /* Remove decorative arrow */
+}
+
+.field-value {
+    font-family: var(--font-mono);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 400;
+    background: transparent;
+    padding: 4px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    word-break: break-word;
+    line-height: 1.2;
+}
+
+.field-value.no-data {
+    color: #d0d0d0;
+    font-style: italic;
+    font-family: var(--font-sans);
+}
+
+.field-row:hover .field-value {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Professional State Displays */
+.error-state,
+.empty-state,
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    margin: 20px;
+    min-height: 200px;
+}
+
+.error-state {
+    border-color: var(--status-critical);
+    background: rgba(220, 38, 38, 0.05);
+}
+
+.loading-state {
+    border-color: var(--gis-accent);
+    background: rgba(6, 182, 212, 0.05);
+}
+
+.error-icon,
+.empty-icon,
+.loading-icon {
+    display: none; /* Remove decorative emojis */
+}
+
+.error-title,
+.empty-title,
+.loading-title {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 400;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.error-title {
+    color: var(--status-critical);
+}
+
+.loading-title {
+    color: var(--gis-accent);
+}
+
+.error-message,
+.empty-message,
+.loading-message {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 400;
+    color: #d0d0d0;
+    margin: 0;
+    line-height: 1.4;
+    max-width: 300px;
+}
+
+.error-message {
+    color: var(--status-critical);
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .grid-detail-panel {
+        width: 98vw;
+        max-height: calc(100vh - 40px);
+        margin: 20px 10px;
+    }
+
+    .grid-tab {
+        min-width: 100px;
+        padding: 12px 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-detail-header {
+        padding: 12px 16px;
+    }
+
+    .grid-name {
+        font-size: 16px;
+    }
+
+    .grid-subtitle {
+        font-size: 11px;
+    }
+
+    .grid-tab-content {
+        padding: 16px;
+    }
+
+
+    .field-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .field-label {
+        text-align: left;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-detail-panel {
+        margin: 10px 5px;
+        max-height: calc(100vh - 20px);
+    }
+
+    .grid-detail-header {
+        padding: 8px 12px;
+    }
+
+    .grid-name {
+        font-size: 14px;
+    }
+
+    .grid-tab {
+        min-width: 80px;
+        padding: 8px 12px;
+        font-size: 11px;
+    }
+
+    .grid-tab-content {
+        padding: 12px;
+    }
+
+    .grid-detail-section {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .section-title {
+        font-size: 12px;
+    }
+
+    .field-row {
+        padding: 6px;
+    }
+
+    .field-label {
+        font-size: 11px;
+    }
+
+    .field-value {
+        font-size: 12px;
+        padding: 2px 4px;
+    }
+}
+
+/* High contrast mode for accessibility */
+@media (prefers-contrast: high) {
+    :root {
+        --gis-border: #ffffff;
+        --gis-text-primary: #ffffff;
+    }
+
+    .field-value {
+        border: 2px solid #ffffff;
+    }
+
+    .grid-detail-section {
+        border: 2px solid #ffffff;
+    }
+}
+
+/* Smooth transitions for interactive elements */
+.grid-detail-close,
+.grid-tab,
+.field-row,
+.grid-detail-section {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.field-value {
+    transition: border-color 0.2s ease;
+}

@@ -1,0 +1,26 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+/* Specific overrides for map page */
+.Map-container {
+  /* Assuming this class is used for the map's parent container */
+  height: 100vh;
+  /* Full viewport height */
+  display: block;
+  /* Overrides any flex display */
+  padding: 0;
+  /* No padding */
+  margin: 0;
+  /* No margin */
+}

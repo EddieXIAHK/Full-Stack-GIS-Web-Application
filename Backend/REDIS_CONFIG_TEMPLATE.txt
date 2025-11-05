@@ -1,0 +1,17 @@
+# Redis Configuration Template for .env file
+# Add these lines to your Backend/.env file
+
+# 🚀 REDIS CACHE CONFIGURATION (Compatible with Redis Server 4.0.9)
+
+# Redis Host (use 'localhost' if Redis is on the same server)
+REDIS_HOST=localhost
+
+# Redis Port (default: 6379)
+REDIS_PORT=6379
+
+# Redis Password (leave empty if no password is set)
+REDIS_PASSWORD=
+
+# Redis Database Number (0-15, default: 0)
+REDIS_DB=0
+
